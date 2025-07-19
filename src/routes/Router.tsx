@@ -5,6 +5,8 @@ import ResultPage from '../pages/ResultPage';
 import RecommendPick from '../pages/RecommendPick';
 import RecommendFlow from '../pages/RecommendFlow';
 import RecommendRandom from '../pages/RecommendRandom';
+import TopicDetailPage from '../pages/TopicDetailPage';
+import TopicRecommendPage from '../pages/TopicRecommendPage';
 
 function Router() {
   return (
@@ -16,6 +18,8 @@ function Router() {
         <Route path="/recommendpick" element={<RecommendPick />} />
         <Route path="/recommendflow" element={<RecommendFlow />} />
         <Route path="/recommendrandom" element={<RecommendRandom />} />
+        <Route path="/topicdetail" element={<TopicDetailPage />} />
+        <Route path="/topicrecommend" element={<TopicRecommendPage />} />
       </Routes>
     </BrowserRouter>
   );
