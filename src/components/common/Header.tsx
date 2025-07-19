@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImage from '../../assets/Talktic_logo.png';
+import logoImage from '../../assets/TALKTIC.png';
 
 interface HeaderProps {
   className?: string;
@@ -8,11 +8,11 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ className = '' }) => {
   return (
     <header className={`flex items-center p-4 ${className}`}>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-4">
         <img 
           src={logoImage} 
           alt="TALKTIC Logo" 
-          className="w-8 h-8 object-contain"
+          className="w-21 h-20 object-contain"
         />
       </div>
     </header>
