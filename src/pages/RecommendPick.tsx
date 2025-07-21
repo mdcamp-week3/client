@@ -58,7 +58,7 @@ const RecommendPick: React.FC = () => {
           </div>
           
           {/* 서브 헤딩 */}
-          <p className="text-[1.5vw] font-yspotlight text-gray-600 mt-[2vh]">
+          <p className="text-[1.5vw] font-yspotlight text-gray-600 mt-[5vh]">
             먼저, 대화 상황에 어울리는 카테고리를 골라주세요
           </p>
         </div>
@@ -118,10 +118,10 @@ const RecommendPick: React.FC = () => {
               <span className="text-[1.2vw] font-pretendard text-gray-700">만약에 시리즈</span>
             </button>
             <button
-              onClick={() => handleCategoryClick("연애 가치관")}
+              onClick={() => handleCategoryClick("만약에 시리즈")}
               className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[11.6vw] h-[6vh] flex items-center justify-center"
             >
-              <span className="text-[1.2vw] font-pretendard text-gray-700">연애 가치관</span>
+              <span className="text-[1.2vw] font-pretendard text-gray-700">만약에 시리즈</span>
             </button>
             <button
               onClick={() => handleCategoryClick("일상 공유형")}
