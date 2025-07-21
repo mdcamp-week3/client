@@ -50,7 +50,7 @@ const RecommendFlow: React.FC = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-white overflow-y-auto">
+    <div className="w-full min-h-screen bg-white overflow-hidden">
       {/* 로고는 고정 크기 */}
       <div className="pl-5 w-[300px]">
         <Header />
@@ -58,7 +58,7 @@ const RecommendFlow: React.FC = () => {
       
       
       {/* 메인 콘텐츠 */}
-      <div className="flex flex-col items-center w-full pt-[0vh] px-[5vw] pb-[10vh] overflow-y-auto">
+      <div className="flex flex-col items-center justify-center h-[calc(100vh-220px)] w-full">
         {/* Page Title - 화면 크기에 비례 */}
         <div className="text-center mb-[1vh] w-full px-[8vw]">
           <div className="flex items-center justify-center space-x-[1.2vw]">
