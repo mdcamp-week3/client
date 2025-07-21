@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../components/common/Header';
-import Button from '../components/common/Button';
 import speechBubble from '../assets/bubble.png';
+import Button from '../components/common/Button';
+import Header from '../components/common/Header';
 
 const RecommendFlow: React.FC = () => {
   const [isDragOver, setIsDragOver] = useState(false);
@@ -118,6 +118,7 @@ const RecommendFlow: React.FC = () => {
                     많이 먹어도 살 안 찌기{"\n"}vs{"\n"}잘 안 자도 멀쩡하기
                 </p>
                 </div>
+            </div>
             </div>
 
         {/* Action Button - 화면 크기에 비례 */}
