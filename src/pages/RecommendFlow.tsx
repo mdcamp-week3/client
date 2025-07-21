@@ -70,14 +70,14 @@ const RecommendFlow: React.FC = () => {
               variant="gray-outline" 
               size="sm"
               onClick={handleDirectPick}
-              className="px-[2vw] py-[1vh] text-[1.18vw] font-pretendard"
+              className="px-[2vw] py-[1vh] text-[30px] font-pretendard"
             >
               직접 주제 고르기
             </Button>
             <Button 
               variant="outline" 
               size="sm"
-              className="px-[2vw] py-[1vh] text-[1.18vw] font-pretendard"
+              className="px-[2vw] py-[1vh] text-[30px] font-pretendard"
             >
               대화 흐름 이어가기
             </Button>
@@ -85,7 +85,7 @@ const RecommendFlow: React.FC = () => {
               variant="gray-outline" 
               size="sm"
               onClick={handleRandomPick}
-              className="px-[2vw] py-[1vh] text-[1.18vw] font-pretendard"
+              className="px-[2vw] py-[1vh] text-[30px] font-pretendard"
             >
               랜덤 대화 주제
             </Button>
