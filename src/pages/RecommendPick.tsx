@@ -68,10 +68,10 @@ const RecommendPick: React.FC = () => {
           {/* 첫 번째 줄 - 3개 (각각 더 넓게) */}
           <div className="flex gap-[1.5vw] mb-[1.2vw] justify-center">
             <button
-              onClick={() => handleCategoryClick("장난스럽게")}
+              onClick={() => handleCategoryClick("컨텐츠 공유형")}
               className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[6vh] flex items-center justify-center"
             >
-              <span className="text-[1.2vw] font-pretendard text-gray-700">장난스럽게</span>
+              <span className="text-[1.2vw] font-pretendard text-gray-700">컨텐츠 공유형</span>
             </button>
             <button
               onClick={() => handleCategoryClick("너에 대해 더 알고 싶어")}
@@ -112,10 +112,10 @@ const RecommendPick: React.FC = () => {
           {/* 세 번째 줄 - 4개 (각각 더 좁게) */}
           <div className="flex gap-[1.5vw] mb-[1.2vw] justify-center">
             <button
-              onClick={() => handleCategoryClick("가벼운 농담")}
+              onClick={() => handleCategoryClick("만약에 시리즈")}
               className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[11.6vw] h-[6vh] flex items-center justify-center"
             >
-              <span className="text-[1.2vw] font-pretendard text-gray-700">가벼운 농담</span>
+              <span className="text-[1.2vw] font-pretendard text-gray-700">만약에 시리즈</span>
             </button>
             <button
               onClick={() => handleCategoryClick("연애 가치관")}
