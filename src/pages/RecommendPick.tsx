@@ -35,7 +35,7 @@ const RecommendPick: React.FC = () => {
             <Button 
               variant="outline" 
               size="sm"
-              className="px-[2vw] py-[1vh] text-[1.18vw] font-pretendard"
+              className="px-[2vw] py-[1vh] text-[30px] font-pretendard"
             >
               직접 주제 고르기
             </Button>
@@ -43,7 +43,7 @@ const RecommendPick: React.FC = () => {
               variant="gray-outline" 
               size="sm"
               onClick={() => navigate('/recommendflow')}
-              className="px-[2vw] py-[1vh] text-[1.18vw] font-pretendard"
+              className="px-[2vw] py-[1vh] text-[30px] font-pretendard"
             >
               대화 흐름 이어가기
             </Button>
@@ -51,7 +51,7 @@ const RecommendPick: React.FC = () => {
               variant="gray-outline" 
               size="sm"
               onClick={() => navigate('/recommendrandom')}
-              className="px-[2vw] py-[1vh] text-[1.18vw] font-pretendard"
+              className="px-[2vw] py-[1vh] text-[30px] font-pretendard"
             >
               랜덤 대화 주제
             </Button>
@@ -66,72 +66,72 @@ const RecommendPick: React.FC = () => {
         {/* 카테고리 그리드 - 정확히 4줄로 배치 */}
         <div className="w-full px-[8vw] mb-[4vh]">
           {/* 첫 번째 줄 - 3개 (각각 더 넓게) */}
-          <div className="flex gap-[1.5vw] mb-[1.5vw] justify-center">
+          <div className="flex gap-[1.5vw] mb-[1.2vw] justify-center">
             <button
               onClick={() => handleCategoryClick("장난스럽게")}
-              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[8vh] flex items-center justify-center"
+              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[6vh] flex items-center justify-center"
             >
               <span className="text-[1.2vw] font-pretendard text-gray-700">장난스럽게</span>
             </button>
             <button
               onClick={() => handleCategoryClick("너에 대해 더 알고 싶어")}
-              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[8vh] flex items-center justify-center"
+              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[6vh] flex items-center justify-center"
             >
               <span className="text-[1.2vw] font-pretendard text-gray-700">너에 대해 더 알고 싶어</span>
             </button>
             <button
               onClick={() => handleCategoryClick("설렘이 필요할 때")}
-              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[8vh] flex items-center justify-center"
+              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[6vh] flex items-center justify-center"
             >
               <span className="text-[1.2vw] font-pretendard text-gray-700">설렘이 필요할 때</span>
             </button>
           </div>
           
           {/* 두 번째 줄 - 3개 (각각 더 넓게) */}
-          <div className="flex gap-[1.5vw] mb-[1.5vw] justify-center">
+          <div className="flex gap-[1.5vw] mb-[1.2vw] justify-center">
             <button
               onClick={() => handleCategoryClick("취향 공유하기")}
-              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[8vh] flex items-center justify-center"
+              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[6vh] flex items-center justify-center"
             >
               <span className="text-[1.2vw] font-pretendard text-gray-700">취향 공유하기</span>
             </button>
             <button
               onClick={() => handleCategoryClick("과거 이야기")}
-              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[8vh] flex items-center justify-center"
+              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[6vh] flex items-center justify-center"
             >
               <span className="text-[1.2vw] font-pretendard text-gray-700">과거 이야기</span>
             </button>
             <button
               onClick={() => handleCategoryClick("은근히 떠보기")}
-              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[8vh] flex items-center justify-center"
+              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[6vh] flex items-center justify-center"
             >
               <span className="text-[1.2vw] font-pretendard text-gray-700">은근히 떠보기</span>
             </button>
           </div>
           
           {/* 세 번째 줄 - 4개 (각각 더 좁게) */}
-          <div className="flex gap-[1.5vw] mb-[1.5vw] justify-center">
+          <div className="flex gap-[1.5vw] mb-[1.2vw] justify-center">
             <button
               onClick={() => handleCategoryClick("가벼운 농담")}
-              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[11.6vw] h-[8vh] flex items-center justify-center"
+              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[11.6vw] h-[6vh] flex items-center justify-center"
             >
               <span className="text-[1.2vw] font-pretendard text-gray-700">가벼운 농담</span>
             </button>
             <button
               onClick={() => handleCategoryClick("연애 가치관")}
-              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[11.6vw] h-[8vh] flex items-center justify-center"
+              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[11.6vw] h-[6vh] flex items-center justify-center"
             >
               <span className="text-[1.2vw] font-pretendard text-gray-700">연애 가치관</span>
             </button>
             <button
               onClick={() => handleCategoryClick("일상 공유형")}
-              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[11.6vw] h-[8vh] flex items-center justify-center"
+              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[11.6vw] h-[6vh] flex items-center justify-center"
             >
               <span className="text-[1.2vw] font-pretendard text-gray-700">일상 공유형</span>
             </button>
             <button
               onClick={() => handleCategoryClick("이상형 토크")}
-              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[11.6vw] h-[8vh] flex items-center justify-center"
+              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[11.6vw] h-[6vh] flex items-center justify-center"
             >
               <span className="text-[1.2vw] font-pretendard text-gray-700">이상형 토크</span>
             </button>
@@ -141,19 +141,19 @@ const RecommendPick: React.FC = () => {
           <div className="flex gap-[1.5vw] justify-center">
             <button
               onClick={() => handleCategoryClick("연애 밸런스 게임")}
-              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[8vh] flex items-center justify-center"
+              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[6vh] flex items-center justify-center"
             >
               <span className="text-[1.2vw] font-pretendard text-gray-700">연애 밸런스 게임</span>
             </button>
             <button
               onClick={() => handleCategoryClick("티나는 호감 표현")}
-              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[8vh] flex items-center justify-center"
+              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[6vh] flex items-center justify-center"
             >
               <span className="text-[1.2vw] font-pretendard text-gray-700">티나는 호감 표현</span>
             </button>
             <button
               onClick={() => handleCategoryClick("TMI 폭격!")}
-              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[8vh] flex items-center justify-center"
+              className="border border-gray-300 rounded-lg p-[1.5vw] text-center hover:border-custom-pink hover:bg-gray-50 transition-colors w-[16vw] h-[6vh] flex items-center justify-center"
             >
               <span className="text-[1.2vw] font-pretendard text-gray-700">TMI 폭격!</span>
             </button>
@@ -165,7 +165,7 @@ const RecommendPick: React.FC = () => {
           <Button 
             variant="primary" 
             size="lg"
-            onClick={() => navigate('/recommendflow')}
+            onClick={() => navigate('')}
             className="w-full h-[8vh] text-[1.7vw] font-semibold"
           >
             선택하기
