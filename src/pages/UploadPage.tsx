@@ -65,7 +65,7 @@ const UploadPage: React.FC = () => {
         </div>
 
         {/* Upload Area - 화면 크기에 비례 */}
-        <div className="w-full px-[15vw] mb-[4vh]">
+        <div className="w-full px-[25vw] mb-[4vh]">
           <div
             className={`border-2 border-dashed border-gray-400 rounded-lg p-[2vw] text-center transition-colors bg-gray-100 ${
               isDragOver ? 'border-custom-pink bg-gray-200' : 'border-gray-400'
@@ -118,7 +118,7 @@ const UploadPage: React.FC = () => {
         </div>
 
         {/* Action Button - 화면 크기에 비례 */}
-        <div className="text-center w-full px-[25vw]">
+        <div className="text-center w-full px-[40vw]">
           <Button 
             variant="primary" 
             size="lg"
