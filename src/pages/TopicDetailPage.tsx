@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import Header from '../components/common/Header';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
+import Header from '../components/common/Header';
 
 const TopicDetailPage: React.FC = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const TopicDetailPage: React.FC = () => {
   };
 
   const handleSelectAnotherTopic = () => {
-    navigate('/recommendflow');
+    navigate('/recommendPick');
   };
 
   return (

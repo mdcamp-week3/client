@@ -54,7 +54,7 @@ const RecommendFlow: React.FC = () => {
       
       
       {/* 메인 콘텐츠 */}
-      <div className="flex flex-col items-center w-full pt-[2vh] px-[5vw] pb-[10vh] overflow-y-auto">
+      <div className="flex flex-col items-center w-full pt-[0vh] px-[5vw] pb-[10vh] overflow-y-auto">
         {/* Page Title - 화면 크기에 비례 */}
         <div className="text-center mb-[1vh] w-full px-[8vw]">
           <div className="flex items-center justify-center space-x-[1.2vw]">
@@ -78,6 +78,7 @@ const RecommendFlow: React.FC = () => {
             <Button 
               variant="outline" 
               size="sm"
+              onClick={handleDirectPick}
               className="px-[2vw] py-[1vh] text-[1.18vw] font-pretendard"
             >
               대화 흐름 이어가기
@@ -94,7 +95,7 @@ const RecommendFlow: React.FC = () => {
         
         </div>
 
-        <div className="relative w-[60vw] max-w-[500px] mx-auto mt-[3vh]">
+        <div className="relative w-[60vw] max-w-[600px] mx-auto mt-[3vh]">
             {/* 말풍선 이미지 */}
             <img
                 src={speechBubble}
@@ -103,17 +104,17 @@ const RecommendFlow: React.FC = () => {
             />
 
             {/* 말풍선 안 텍스트 */}
-<div className="absolute inset-0 px-[10%] flex flex-col items-center">
-    {/* 위에서 약간 떨어진 "밸런스게임" */}
-    <p className="mt-[8%] text-[1.7vw] font-regular font-yspotlight">밸런스게임</p>
+            <div className="absolute inset-0 px-[10%] flex flex-col items-center">
+                {/* 위에서 약간 떨어진 "밸런스게임" */}
+                <p className="mt-[10%] text-[1.7vw] text-gray-700 font-regular font-yspotlight">밸런스게임</p>
 
-    {/* 아래쪽에서 중앙보다 약간 내려간 위치에 메인 텍스트 */}
-    <div className="flex-grow flex items-center justify-center">
-      <p className="text-[1.3vw] text-black font-regular font-yspotlight whitespace-pre-line leading-tight mt-[-5vh]">
-        많이 먹어도 살 안 찌기{"\n"}vs{"\n"}잘 안 자도 멀쩡하기
-      </p>
-    </div>
-  </div>
+                {/* 아래쪽에서 중앙보다 약간 내려간 위치에 메인 텍스트 */}
+                <div className="flex-grow flex items-center justify-center">
+                  <p className="text-[1.3vw] text-gray-700 font-regular font-yspotlight whitespace-pre-line leading-tight mt-[-5vh]">
+                    많이 먹어도 살 안 찌기{"\n"}vs{"\n"}잘 안 자도 멀쩡하기
+                  </p>
+                </div>
+              </div>
             </div>
 
         {/* Action Button - 화면 크기에 비례 */}
