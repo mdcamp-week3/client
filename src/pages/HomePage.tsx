@@ -5,14 +5,22 @@ import Button from '../components/common/Button';
 
 function HomePage() {
   return (
-    <div className="w-full min-h-screen bg-white flex flex-col items-center justify-center overflow-hidden px-[5vw] py-[5vh]">
+    <div className="w-full min-h-screen bg-white flex flex-col items-center justify-center overflow-hidden px-[5vw] ">
       {/* 상단 - 핸드폰 이미지 + 로고 */}
-      <div className="flex flex-col lg:flex-row items-center justify-center w-full space-y-[5vh] lg:space-y-0 lg:space-x-[5vw]">
+      <div className="flex flex-col lg:flex-row items-center justify-center w-full space-y-[5vh] lg:space-y-0 lg:space-x-[5vw] h-[100vh]">
         {/* 핸드폰 이미지 */}
         <img
           src={phoneImage}
           alt="핸드폰"
-          className="w-[50vw] max-w-[540px] h-auto object-contain mt-[4vh] lg:mt-[10vh]"
+          className="object-contain 
+    self-end
+    w-full
+    max-w-[400px] 
+    sm:max-w-[300px] 
+    md:max-w-[400px] 
+    lg:max-w-[450px] 
+    xl:max-w-[500px]
+    h-auto"
         />
 
         {/* 로고 + 버튼들 */}
@@ -43,4 +51,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default HomePage; 
