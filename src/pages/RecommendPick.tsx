@@ -176,4 +176,4 @@ const RecommendPick: React.FC = () => {
   );
 };
 
-export default RecommendFlow;
+export default RecommendPick;
