@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import Header from '../components/common/Header';
 import Button from '../components/common/Button';
 import thinkBubble from '../assets/thinkbubble.png';
+import { useNavigate } from 'react-router-dom';
+import { parseKakaoOCRWithAlternatingPattern } from '../utils/parseKakaoOCR';
 
 const UploadPage: React.FC = () => {
   const [isDragOver, setIsDragOver] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -20,23 +25,75 @@ const UploadPage: React.FC = () => {
     e.preventDefault();
     setIsDragOver(false);
     const files = e.dataTransfer.files;
-    console.log('Dropped files:', files);
+    if (files && files[0]) {
+      setSelectedFile(files[0]);
+    }
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (files) {
-      console.log('Selected files:', files);
+    if (files && files[0]) {
+      setSelectedFile(files[0]);
     }
   };
 
+  const handleAnalyze = async () => {
+    if (!selectedFile) {
+      alert('이미지 파일을 먼저 업로드해주세요.');
+      return;
+    }
+    setLoading(true);
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+
+    try {
+      // 1. OCR 결과 받기
+      const ocrRes = await fetch('/api/image/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      if (!ocrRes.ok) throw new Error('OCR 서버 오류');
+      const ocrResult = await ocrRes.json();
+
+      // 2. 파싱 함수로 대화 데이터 추출
+      const imageWidth = ocrResult.images?.[0]?.width || 720;
+      const parsedDialogues = parseKakaoOCRWithAlternatingPattern(ocrResult, imageWidth);
+
+      // 3. OCR 결과와 파싱 결과를 DB에 저장
+      const convRes = await fetch('/api/conversation/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ocrResult, parsedDialogues }),
+      });
+      if (!convRes.ok) throw new Error('대화 저장 오류');
+      const { conversationId } = await convRes.json();
+
+      // 4. Gemini 분석 API로 전송
+      const analyzeRes = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          conversationId,
+          parsedDialogues,
+        }),
+      });
+      if (!analyzeRes.ok) throw new Error('Gemini 분석 오류');
+      const analyzeResult = await analyzeRes.json();
+
+      // 5. ResultPage로 이동하며 결과 전달
+      navigate('/result', { state: { analyzeResult } });
+    } catch (error) {
+      alert('분석 중 오류가 발생했습니다.');
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="w-full h-screen bg-white overflow-hidden">
       {/* 로고는 고정 크기 */}
       <div className="pl-5 w-[300px]">
         <Header />
       </div>
-      
       {/* 메인 콘텐츠 - 헤더와 간격 더 줄임 */}
       <div className="flex flex-col items-center justify-center h-[calc(100vh-220px)] w-full">
         {/* Page Title - 화면 크기에 비례 */}
@@ -48,7 +105,6 @@ const UploadPage: React.FC = () => {
             </h1>
             <span className="text-[3vw] font-yspotlight text-custom-pink">왛</span>
           </div>
-          
           {/* 말풍선 아이콘 - 화면 크기에 비례 */}
           <div className="flex justify-center mt-[1vh]">
             <img 
@@ -57,13 +113,11 @@ const UploadPage: React.FC = () => {
               className="w-[10vw] h-[10vw] object-contain"
             />
           </div>
-          
           {/* 설명 텍스트 - 화면 크기에 비례 */}
           <p className="text-[1.5vw] text-black font-yspotlight mt-[1vh]">
             두 사람의 톡을 분석해서 썸 지수를 알려드릴게요 왇
           </p>
         </div>
-
         {/* Upload Area - 화면 크기에 비례 */}
         <div className="w-full px-[25vw] mb-[4vh]">
           <div
@@ -91,14 +145,12 @@ const UploadPage: React.FC = () => {
                   />
                 </svg>
               </div>
-              
               {/* Upload Text - 화면 크기에 비례 */}
               <div>
                 <p className="text-[1.3vw] font-pretendard text-black">
                   카톡 대화 캡처 장면을 업로드하세요.
                 </p>
               </div>
-              
               {/* File Input */}
               <input
                 type="file"
@@ -116,16 +168,16 @@ const UploadPage: React.FC = () => {
             </div>
           </div>
         </div>
-
         {/* Action Button - 화면 크기에 비례 */}
         <div className="text-center w-full px-[40vw]">
           <Button 
             variant="primary" 
             size="lg"
-            onClick={() => console.log('분석 시작')}
+            onClick={handleAnalyze}
             className="w-full h-[8vh] text-[1.7vw] font-semibold"
+            disabled={loading}
           >
-            대화 분석하기
+            {loading ? '분석 중...' : '대화 분석하기'}
           </Button>
         </div>
       </div>
