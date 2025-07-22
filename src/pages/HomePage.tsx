@@ -1,9 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import phoneImage from '../assets/phone.png';
 import logo from '../assets/Talktic_logo.png';
 import Button from '../components/common/Button';
 
-function HomePage() {
+
+const HomePage: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleUpload = () => {
+    navigate('/upload');
+  };
+
+  const handleRecommendPick = () => {
+    navigate('/RecommendPick');
+  };
+
+  
   return (
     <div className="w-full min-h-screen bg-white flex flex-col items-center justify-center overflow-hidden px-[5vw] ">
       {/* 상단 - 핸드폰 이미지 + 로고 */}
@@ -34,14 +47,15 @@ function HomePage() {
 
           {/* 버튼 1 */}
           <div className="w-[60vw] max-w-[450px] mb-[2vh]">
-            <Button variant="primary" size="lg" className="w-full text-[1.5vw] lg:text-[1.2vw]">
+            <Button variant="primary" size="lg" onClick={handleUpload} className="w-full text-[1.5vw] lg:text-[1.2vw]">
+              
               대화 분석하기
             </Button>
           </div>
 
           {/* 버튼 2 */}
           <div className="w-[60vw] max-w-[450px]">
-            <Button variant="outline" size="lg" className="w-full text-[1.5vw] lg:text-[1.2vw]">
+            <Button variant="outline" size="lg" onClick={handleRecommendPick} className="w-full text-[1.5vw] lg:text-[1.2vw]">
               연애 코칭받기
             </Button>
           </div>
@@ -49,6 +63,6 @@ function HomePage() {
       </div>
     </div>
   );
-}
+};
 
 export default HomePage; 
