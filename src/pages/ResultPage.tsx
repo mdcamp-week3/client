@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
 import Header from '../components/common/Header';
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const ResultPage: React.FC = () => {
-  const [isDragOver, setIsDragOver] = useState(false);
-  const [showHeart, setShowHeart] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const analyzeResult = location.state?.analyzeResult;
+  const [recommendedReply, setRecommendedReply] = useState<string | null>(null);
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [loading, setLoading] = useState(false);
+
 
   if (!analyzeResult) {
-    return <div>분석 결과가 없습니다.</div>; // 혹은 navigate('/upload') 등 처리
+    return <div>분석 결과가 없습니다.</div>; 
   }
 
   const {conversationId, meScore, youScore, finalLikeScore, otherName } = analyzeResult;
@@ -22,42 +24,45 @@ const ResultPage: React.FC = () => {
   const youPercent = Math.round(youScore * 100);
   const finalPercent = Math.round(finalLikeScore * 100);
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragOver(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragOver(false);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragOver(false);
-    const files = e.dataTransfer.files;
-    console.log('Dropped files:', files);
-  };
-
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files) {
-      console.log('Selected files:', files);
+  // 복사 기능
+  const handleCopyText = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setShowSnackbar(true);
+      setTimeout(() => setShowSnackbar(false), 3000);
+    } catch (err) {
+      alert('복사 실패');
     }
   };
 
-
-
-  const handleIconClick = () => {
-    setShowHeart(!showHeart);
-  };
-
-  const handleDirectPick = () => {
-    navigate('/recommendpick');
-  };
-
-  const handleRandomPick = () => {
-    navigate('/recommendrandom');
+  // Gemini next reply 호출
+  const handleRecommendNextReply = async () => {
+    setLoading(true);
+    setRecommendedReply(null);
+    try {
+      let parsedDialogues = analyzeResult.parsedDialogues;
+      if (!parsedDialogues) {
+        // 서버에서 대화 데이터 불러오기
+        const res = await fetch(`/api/conversation/${analyzeResult.conversationId}`);
+        if (!res.ok) throw new Error('대화 데이터 불러오기 실패');
+        const data = await res.json();
+        parsedDialogues = data.parsedDialogues;
+        if (!parsedDialogues) throw new Error('대화 데이터가 없습니다.');
+      }
+      // 이후 Gemini next reply API 호출
+      const replyRes = await fetch('/api/gemini/next-reply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ parsedDialogues }),
+      });
+      if (!replyRes.ok) throw new Error('추천 답변 생성 오류');
+      const { recommendedReply } = await replyRes.json();
+      setRecommendedReply(recommendedReply);
+    } catch (error) {
+      alert((error as any).message || '추천 답변 생성 중 오류가 발생했습니다.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -178,13 +183,13 @@ const ResultPage: React.FC = () => {
 
 </div>
 
-        {/* Action Button - 화면 크기에 비례 */}
+        {/* Action Button - 기존 버튼 2개 → 1개는 추천 기능으로 변경 */}
         <div className="flex flex-col justify-center items-center gap-[1.5vh] mt-[6vh] w-full px-[15vw]">
   <Button
     variant="primary"
     size="lg"
     className="py-[1.4vh] text-[1.2vw] font-pretendard font-semibold rounded-[15px]"
-    onClick={() => console.log('다른 대화 분석')}
+    onClick={() => navigate('/upload')}
   >
     다른 대화 분석하기
   </Button>
@@ -192,11 +197,64 @@ const ResultPage: React.FC = () => {
     variant="outline"
     size="lg"
     className="py-[1.4vh] text-[1.2vw] font-pretendard font-semibold rounded-[15px]"
-    onClick={() => console.log('다음 대화 추천')}
+    onClick={handleRecommendNextReply}
+    disabled={loading}
   >
-    다음 대화 추천받기
+    {loading ? '추천 중...' : '다음 대화 추천받기'}
   </Button>
 </div>
+
+      {/* 추천 답변 박스 */}
+      {recommendedReply && (
+        <div className="mt-[2vh] px-[10vw] w-full flex justify-center">
+          <div className="flex items-center bg-gray-100 rounded-lg p-[2vw] w-full max-w-[40vw] shadow">
+            <div className="flex-1 text-[1.3vw] text-black break-words">{recommendedReply}</div>
+            <button
+              onClick={() => handleCopyText(recommendedReply)}
+              className="ml-4 w-[2vw] h-[2vw] flex items-center justify-center text-gray-400 hover:text-custom-pink transition-colors"
+              title="텍스트 복사"
+            >
+              {/* 복사 아이콘 */}
+              <svg 
+                className="w-[1.5vw] h-[1.5vw]" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" 
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* 스낵바 */}
+      {showSnackbar && (
+        <div className="fixed bottom-[5vh] left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-[3vw] py-[1.5vh] rounded-lg shadow-lg z-50 transition-all duration-300 ease-in-out">
+          <div className="flex items-center space-x-[1vw]">
+            <svg 
+              className="w-[1.5vw] h-[1.5vw] text-green-400" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M5 13l4 4L19 7" 
+              />
+            </svg>
+            <span className="text-[1.2vw] font-pretendard">텍스트가 복사되었습니다!</span>
+          </div>
+        </div>
+      )}
+
       </div>
     </div>
   );
