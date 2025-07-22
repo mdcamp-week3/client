@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../components/common/Header';
 import Button from '../components/common/Button';
+import Header from '../components/common/Header';
 import { parseKakaoOCRWithAlternatingPattern } from '../utils/parseKakaoOCR';
 
 const RecommendFlow: React.FC = () => {
@@ -220,7 +220,7 @@ const RecommendFlow: React.FC = () => {
       <button
         type="button"
         className="mt-2 text-gray-400 hover:text-red-500 transition-colors mb-0"
-        onClick={() => setSelectedFile(null)}
+        onClick={() => {setSelectedFile(null); setRecommendedReply(null);}}
         title="이미지 삭제"
       >
         {/* 휴지통 아이콘 */}
@@ -244,7 +244,8 @@ const RecommendFlow: React.FC = () => {
 </div>
 
         {/* Action Button */}
-        <div className="text-center w-full px-[40vw] mt-0">
+        {!recommendedReply && (
+          <div className="text-center w-full px-[40vw] mt-0">
           <Button 
             variant="primary" 
             size="lg"
@@ -252,15 +253,16 @@ const RecommendFlow: React.FC = () => {
             className="w-full h-[6vh] text-[1.7vw] font-semibold"
             disabled={loading}
           >
-            {loading ? '분석 중...' : '주제 추천받기'}
+            {loading ? '분석 중...' : '답변 추천받기'}
           </Button>
         </div>
+        )}
 
         {/* 추천 답변 박스 */}
         {recommendedReply && (
-          <div className="mt-[2vh] px-[10vw] w-full flex justify-center">
+          <div className="mt-[0h] mb-[2vh] px-[10vw] w-full flex justify-center">
             <div className="flex items-center bg-gray-100 rounded-lg p-[2vw] w-full max-w-[40vw] shadow">
-              <div className="flex-1 text-[1.3vw] text-black break-words">{recommendedReply}</div>
+              <div className="flex-1 text-[1.5vw] text-black break-words">{recommendedReply}</div>
               <button
                 onClick={() => handleCopyText(recommendedReply)}
                 className="ml-4 w-[2vw] h-[2vw] flex items-center justify-center text-gray-400 hover:text-custom-pink transition-colors"

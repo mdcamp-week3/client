@@ -74,7 +74,7 @@ const ResultPage: React.FC = () => {
       
       
       {/* 메인 콘텐츠 */}
-      <div className="flex flex-col items-center w-full pt-[2vh] px-[5vw] pb-[10vh] overflow-y-auto">
+      <div className="flex flex-col items-center w-full pt-[0vh] px-[5vw] pb-[10vh] overflow-y-auto">
         {/* Page Title - 화면 크기에 비례 */}
         <div className="text-center mb-[1vh] w-full px-[8vw]">
           <div className="flex items-center justify-center space-x-[1.2vw]">
