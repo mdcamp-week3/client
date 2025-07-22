@@ -81,7 +81,7 @@ const TopicDetailPage: React.FC = () => {
           <div className="bg-white p-[3vw]">
             {/* 서브 헤딩 */}
             <h2 className="text-[2vw] font-yspotlight text-black mb-[2vh] text-center">
-              {topicName} 주제라면 이런 얘기들 어때요?
+              <span className="text-custom-pink">{topicName}</span> 주제라면 이런 얘기들 어때요?
             </h2>
             
             {/* 예시 리스트 */}
