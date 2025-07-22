@@ -165,6 +165,18 @@ const UploadPage: React.FC = () => {
               >
                 파일 선택하기
               </label>
+              {selectedFile && (
+                <div className="flex items-center space-x-2 mt-2">
+                  <p className="text-[1vw] text-gray-600">{selectedFile.name}</p>
+                  <button
+                    type="button"
+                    className="text-red-500 hover:text-red-700 text-xs border border-red-300 rounded px-2 py-1 ml-2"
+                    onClick={() => setSelectedFile(null)}
+                  >
+                    삭제
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
