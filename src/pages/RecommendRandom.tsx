@@ -83,7 +83,7 @@ const categoryDetails: Record<string, string[]> = {
 const RecommendRandom: React.FC = () => {
   const [isDragOver, setIsDragOver] = useState(false);
   const [showHeart, setShowHeart] = useState(false);
-
+  const [showSnackbar, setShowSnackbar] = useState(false);
   
   const getRandomCategory = () => {
     const categories = Object.keys(categoryDetails);
@@ -108,6 +108,20 @@ const RecommendRandom: React.FC = () => {
     const newQuestion = getRandomQuestion(newCategory);
     setSelectedCategory(newCategory);
     setSelectedQuestion(newQuestion);
+  };
+
+  const handleCopyText = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      // 스낵바 표시
+      setShowSnackbar(true);
+      // 3초 후 스낵바 숨기기
+      setTimeout(() => {
+        setShowSnackbar(false);
+      }, 3000);
+    } catch (err) {
+      console.error('복사 실패:', err);
+    }
   };
 
   const navigate = useNavigate();
@@ -258,7 +272,7 @@ const RecommendRandom: React.FC = () => {
             <Button 
                 variant="gray" 
                 size="xs"
-                onClick={() => console.log('복사하기')}
+                onClick={() => handleCopyText(selectedQuestion)}
                 className="flex-1 h-[8vh] text-[1.7vw] font-semibold !text-left"
             >
                 <div className="flex items-center justify-center space-x-[1vw] w-full">
@@ -303,6 +317,27 @@ const RecommendRandom: React.FC = () => {
             </div>
 
       </div>
+
+      {showSnackbar && (
+        <div className="fixed bottom-[5vh] left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-[3vw] py-[1.5vh] rounded-lg shadow-lg z-50 transition-all duration-300 ease-in-out">
+          <div className="flex items-center space-x-[1vw]">
+            <svg 
+              className="w-[1.5vw] h-[1.5vw] text-green-400" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M5 13l4 4L19 7" 
+              />
+            </svg>
+            <span className="text-[1.2vw] font-pretendard">텍스트가 복사되었습니다!</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
