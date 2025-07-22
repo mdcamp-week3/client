@@ -8,13 +8,8 @@ const TopicDetailPage: React.FC = () => {
   const location = useLocation();
   const [showSnackbar, setShowSnackbar] = useState(false);
   
-  // URL 파라미터나 state에서 주제 정보를 받아올 수 있음
-  const topicName = location.state?.topicName || "저녁 약속";
-  const examples = location.state?.examples || [
-    "저녁에 약속 없으면 밥 같이 먹을래?",
-    "오늘 저녁 뭐 먹을지 고민 중인데 추천해줘",
-    "저녁 메뉴 정하는 게 항상 어려워"
-  ];
+  const topicName = location.state?.topicName 
+  const examples = location.state?.examples 
 
   const handleCopyText = async (text: string) => {
     try {
@@ -86,7 +81,7 @@ const TopicDetailPage: React.FC = () => {
           <div className="bg-white p-[3vw]">
             {/* 서브 헤딩 */}
             <h2 className="text-[2vw] font-yspotlight text-black mb-[2vh] text-center">
-              이 주제라면 이런 얘기들 어때요?
+              {topicName} 주제라면 이런 얘기들 어때요?
             </h2>
             
             {/* 예시 리스트 */}
