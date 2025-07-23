@@ -18,8 +18,11 @@ const ResultPage: React.FC = () => {
     return <div>분석 결과가 없습니다.</div>; 
   }
 
-  const { conversationId, meScore, youScore, finalLikeScore, otherName, userId } = analyzeResult;
-  // userId가 analyzeResult에 없다면 location.state 등에서 받아오거나, 필요시 prop으로 넘겨야 함
+  const { conversationId, meScore, youScore, finalLikeScore, otherName } = analyzeResult;
+  let userId = analyzeResult.userId;
+  if (!userId || userId === "undefined" || userId === "null") {
+    userId = localStorage.getItem('userId');
+  }
 
 
   const mePercent = Math.round(meScore * 100);
@@ -186,12 +189,14 @@ const ResultPage: React.FC = () => {
 </div>
 
       {/* === 여기 아래에 썸 지수 변화 현황 추가 === */}
-      <div className="w-full flex flex-col items-center mt-[5vh]">
-        <SumScoreChangeBox userId={userId} />
-      </div>
+      {userId && (
+        <div className="w-full flex flex-col items-center mt-[5vh]">
+          <SumScoreChangeBox userId={userId} />
+        </div>
+      )}
 
         {/* Action Button - 기존 버튼 2개 → 1개는 추천 기능으로 변경 */}
-        <div className="flex flex-col justify-center items-center gap-[1.5vh] mt-[6vh] w-full px-[15vw]">
+        <div className="flex flex-col justify-center items-center gap-[1.5vh] w-full px-[15vw]">
   <Button
     variant="primary"
     size="lg"

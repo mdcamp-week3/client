@@ -1,14 +1,48 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/Talktic_logo.png'; // 실제 경로에 맞게 조정하세요
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSignUpClick = () => {
     navigate('/signup');
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get('email');
+    const password = formData.get('password');
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        setError(data.message || '로그인 실패');
+        setLoading(false);
+        return;
+      }
+      const { userId } = await res.json();
+      localStorage.setItem('userId', userId);
+      // 로그인 성공 시 메인 페이지로 이동
+      navigate('/');
+    } catch (err) {
+      setError('서버 오류');
+      setLoading(false);
+    }
   };
 
   return (
@@ -25,7 +59,7 @@ const LoginPage: React.FC = () => {
         </div>
 
         {/* 폼 */}
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           {/* 이메일 */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium pl-2 text-left text-gray-700 mb-1">
@@ -72,8 +106,9 @@ const LoginPage: React.FC = () => {
             <button
               type="submit"
               className="w-full sm:w-1/2 bg-[#FF6E75] text-white py-2 rounded-md hover:bg-[#e35763] transition"
+              disabled={loading}
             >
-              Login
+              {loading ? '로그인 중...' : 'Login'}
             </button>
             <button
               type="button"
@@ -83,6 +118,7 @@ const LoginPage: React.FC = () => {
               Sign Up
             </button>
           </div>
+          {error && <div className="text-red-500 text-sm text-center">{error}</div>}
         </form>
       </div>
     </div>
