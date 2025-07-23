@@ -36,7 +36,7 @@ const LoginPage: React.FC = () => {
               name="email"
               type="email"
               required
-              defaultValue="robert.langster@gmail.com"
+              //defaultValue="robert.langster@gmail.com"
               className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#FF6E75]"
             />
           </div>
@@ -51,7 +51,7 @@ const LoginPage: React.FC = () => {
               name="password"
               type="password"
               required
-              defaultValue="••••••••"
+              //defaultValue="••••••••"
               className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#FF6E75]"
             />
           </div>

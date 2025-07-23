@@ -59,6 +59,22 @@ const HomePage: React.FC = () => {
               연애 코칭받기
             </Button>
           </div>
+
+          <p className="text-sm text-gray-600 mt-6">
+            <span
+              className="text-[#FF6E75] text-[18px] cursor-pointer hover:underline mr-3"
+              onClick={() => navigate('/login')}
+            >
+              로그인
+            </span>
+            |
+            <span
+              className="text-[#FF6E75] text-[18px] cursor-pointer hover:underline ml-3"
+              onClick={() => navigate('/signup')}
+            >
+              회원가입
+            </span>
+          </p>
         </div>
       </div>
     </div>
