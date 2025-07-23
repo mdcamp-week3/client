@@ -1,14 +1,56 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/Talktic_logo.png';
 
 const SignUpPage: React.FC = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleLoginClick = () => {
     navigate('/login');
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const password = formData.get('password');
+    const confirmPassword = formData.get('confirmPassword');
+
+    if (password !== confirmPassword) {
+      setError('비밀번호가 일치하지 않습니다.');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        localStorage.setItem('userId', data.userId);
+        setError(data.message || '회원가입 실패');
+        setLoading(false);
+        return;
+      }
+
+      // 회원가입 성공 시 로그인 페이지로 이동
+      navigate('/login');
+    } catch (err) {
+      setError('서버 오류');
+      setLoading(false);
+    }
   };
 
   return (
@@ -27,7 +69,7 @@ const SignUpPage: React.FC = () => {
         </div>
 
         {/* 폼 */}
-        <form className="space-y-2">
+        <form className="space-y-2" onSubmit={handleSubmit}>
           {/* 이름 */}
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 pl-2 mb-1 text-left">
@@ -89,8 +131,9 @@ const SignUpPage: React.FC = () => {
           <button
             type="submit"
             className="w-full bg-[#FF6E75] text-white py-2 rounded-md hover:bg-[#e35763] transition"
+            disabled={loading}
           >
-            Sign Up
+            {loading ? '회원가입 중...' : 'Sign Up'}
           </button>
 
           {/* 로그인 링크 */}
@@ -103,6 +146,7 @@ const SignUpPage: React.FC = () => {
               Log in
             </span>
           </p>
+          {error && <div className="text-red-500 text-sm text-center">{error}</div>}
         </form>
       </div>
     </div>
