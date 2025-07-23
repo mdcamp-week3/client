@@ -60,10 +60,12 @@ const UploadPage: React.FC = () => {
       const parsedDialogues = parseKakaoOCRWithAlternatingPattern(ocrResult, imageWidth);
 
       // 3. OCR 결과와 파싱 결과를 DB에 저장
+      const userId = '6880770b00a45089293cc9c8'; // TODO: 실제 로그인된 유저의 ID로 교체
+
       const convRes = await fetch('/api/conversation/upload', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ocrResult, parsedDialogues }),
+        body: JSON.stringify({ ocrResult, parsedDialogues, userId }),
       });
       if (!convRes.ok) throw new Error('대화 저장 오류');
       const { conversationId } = await convRes.json();
