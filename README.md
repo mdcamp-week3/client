@@ -6,13 +6,13 @@
 ## 👥 Team Members
 <table>
     <tr>
-      <td align="center" width="200">
+      <td align="center" width="220">
         <a href="https://github.com/7lram">
           <img width="120" height="120" alt="Image" src="https://github.com/user-attachments/assets/bed619eb-5f33-4ea5-942a-3607bd4b294d" />
           <br />
         </a>
       </td>
-      <td align="center" width="200">
+      <td align="center" width="220">
         <a href="https://github.com/dain00519">
           <img width="120" height="120" alt="Image" src="https://github.com/user-attachments/assets/95633bc1-6add-4ca4-896c-c7934d4846f8" />
           <br />
